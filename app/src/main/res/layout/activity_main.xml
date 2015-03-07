@@ -3,24 +3,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center">
-
+    android:layout_gravity="center">
 
     <TextView
+        android:layout_gravity="center"
         android:text="@string/main_activity_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="10"
         android:paddingTop="10dp"
-        android:paddingBottom="10dp" />
+        android:paddingBottom="40dp"
+        android:textAppearance="?android:textAppearanceLarge" />
 
     <FrameLayout
-        android:layout_weight="90"
+        android:layout_gravity="center"
         android:id="@+id/fragmentMainTaskList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
         tools:context=".MainActivity"
         tools:ignore="MergeRootFrame">
+
+        <ListView
+            android:id="@+id/list_view_task_items"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+
+        </ListView>
+
 
     </FrameLayout>
 
