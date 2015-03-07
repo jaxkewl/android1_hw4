@@ -55,11 +55,38 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     public void deleteTask(String keyID) {
+        Log.d(TAG, "deleting task: " + keyID);
         // Get reference to writable DB
         SQLiteDatabase db = this.getWritableDatabase();
 
         String whereClause = DBContract._ID + "=" + keyID;
         db.delete(DBContract.TABLE_NAME, whereClause, null);
+    }
+
+    public Task getTask(String keyID) {
+        Log.d(TAG, "getting single Task: " + keyID);
+
+        SQLiteDatabase db = getReadableDatabase();
+
+        String[] tableColumns = new String[]{DBContract._ID, DBContract.COL_NAME_1, DBContract.COL_NAME_2};
+        String whereClause = DBContract._ID + "=?";
+        String[] whereArgs = new String[]{keyID};
+
+
+        Cursor cursor = db.query(DBContract.TABLE_NAME, tableColumns, whereClause, whereArgs, null, null, null);
+
+        cursor.moveToFirst();
+        Task task = null;
+        //while (!cursor.isAfterLast()) {
+        task = createTaskFromCursor(cursor);
+        //}
+
+        cursor.close(); // close the cursor
+        db.close();     // close the db
+
+        Log.d(TAG, "Found task: " + task);
+
+        return task;
     }
 
     public List<Task> getTasks() {

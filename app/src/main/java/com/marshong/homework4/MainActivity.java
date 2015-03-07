@@ -217,6 +217,23 @@ public class MainActivity extends ActionBarActivity {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 Log.d(TAG, "confirmed delete");
+
+                                //get list of selected items
+                                SparseBooleanArray checked = mListView.getCheckedItemPositions();
+                                int size = checked.size();
+
+                                Log.d(TAG, "clicked on delete icon " + size);
+                                for (int i = 0; i < size; i++) {
+                                    int key = checked.keyAt(i);
+                                    boolean value = checked.get(key);
+                                    if (value) {
+                                        Task tempTask = tasks.get(key);
+                                        Log.d(TAG, "position: " + i + " key: " + key + " _ID: " + tempTask.getId());
+
+                                        //dbHelper.deleteTask((Integer.toString(tempTask.getId())));
+                                        dbHelper.getTask(Integer.toString(tempTask.getId()));
+                                    }
+                                }
                             }
                         });
 
@@ -227,22 +244,6 @@ public class MainActivity extends ActionBarActivity {
                             }
                         });
                         alert.show();
-
-                        //get list of selected items
-                        SparseBooleanArray checked = mListView.getCheckedItemPositions();
-                        int size = checked.size();
-
-                        Log.d(TAG, "clicked on delete icon " + size);
-                        for (int i = 0; i < size; i++) {
-                            int key = checked.keyAt(i);
-                            boolean value = checked.get(key);
-                            if (value) {
-                                Task tempTask = tasks.get(key);
-                                Log.d(TAG, "position: " + i + " key: " + key + " _ID: " + tempTask.getId());
-
-                                dbHelper.deleteTask((Integer.toString(tempTask.getId())));
-                            }
-                        }
 
 
                     }
