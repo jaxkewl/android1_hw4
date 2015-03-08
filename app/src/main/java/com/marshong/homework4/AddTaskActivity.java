@@ -23,12 +23,13 @@ public class AddTaskActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
+
+        //load up the fragment
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragmentMainTaskList, new PlaceholderFragment())
+                    .add(R.id.fragmentMainTaskList, new AddTaskFragment())
                     .commit();
         }
-
     }
 
 
@@ -52,14 +53,14 @@ public class AddTaskActivity extends ActionBarActivity {
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class PlaceholderFragment extends Fragment {
-        public static final String TAG = "AddTaskActivity";
+    public static class AddTaskFragment extends Fragment {
+        public static final String TAG = AddTaskFragment.class.getSimpleName();
 
-        DBHelper dbHelper;
+        DBHelper dbHelper;          //this class's reference to the database, it could have been passed in
         EditText editTextTaskName;
         EditText editTextTaskDescr;
 
-        public PlaceholderFragment() {
+        public AddTaskFragment() {
 
         }
 
@@ -79,6 +80,7 @@ public class AddTaskActivity extends ActionBarActivity {
                 @Override
                 public void onClick(View v) {
 
+                    //get the name and description and verify
                     String taskName = editTextTaskName.getText().toString().trim();
                     String taskDescr = editTextTaskDescr.getText().toString().trim();
 
@@ -87,6 +89,8 @@ public class AddTaskActivity extends ActionBarActivity {
                     boolean validTaskDescr = !taskDescr.equals("");
                     if (!(validTaskDescr && validTaskName)) {
                         Log.d(TAG, "invalid taskName or taskDescr: " + taskName + ": " + taskDescr);
+
+                        //let the user know something is wrong with their task
                         if (!validTaskName) {
                             editTextTaskName.setError("Enter a valid task name");
                         }

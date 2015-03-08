@@ -40,6 +40,6 @@ public class Task {
 
     @Override
     public String toString() {
-        return "ID" + getId() + " - " + getTaskName() + ": " + getTaskDescr();
+        return getTaskName() + ": " + getTaskDescr();
     }
 }

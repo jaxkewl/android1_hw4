@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:paddingTop="10dp"
         android:paddingBottom="40dp"
-        android:textAppearance="?android:textAppearanceLarge" />
+        android:textSize="@dimen/title_size" />
 
     <FrameLayout
         android:layout_gravity="center"
@@ -27,8 +27,7 @@
         <ListView
             android:id="@+id/list_view_task_items"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            >
+            android:layout_height="wrap_content">
 
         </ListView>
 
